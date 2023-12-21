@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article['title'] }}</title>
+</head>
+<body>
+    <h1>{{ article['title'] }}</h1>
+    
+    <!-- Champs et boutons -->
+    <a href="{{ url_for('search') }}"><button>Retour à la recherche</button></a>
+    <div>
+        <label for="relatedArticlesInput">Nombre d'articles connexes à afficher:</label>
+        <input type="number" id="relatedArticlesInput" name="relatedArticles" min="1">
+        <button id="searchRelatedArticlesButton">Rechercher</button>
+        <button id="syntheseButton" style="display: none;">Synthèse</button>
+    </div>
+    
+    <!-- Contenu de l'article -->
+    <p>{{ article['content'] }}</p>
+    
+    <!-- Affichage des articles connexes -->
+    <div id="relatedArticlesContent" style="display: none;">
+        <h2>Articles connexes</h2>
+        <ul id="relatedArticlesList">
+            <!-- À implémenter -->
+        </ul>
+    </div>
+    
+    <!-- Contenu du graphique caché initialement -->
+    <div id="graphContent" style="display: none;">
+        <!-- À implémenter -->
+    </div>
+    
+    <script>
+        document.getElementById("searchRelatedArticlesButton").addEventListener("click", function() {
+            var numberOfRelatedArticles = document.getElementById("relatedArticlesInput").value;
+            // À implémenter : logique pour afficher les articles connexes
+            
+            // Affichage du bouton "Synthèse" une fois que les articles connexes ont été affichés
+            document.getElementById("syntheseButton").style.display = "inline-block";
+        });
+        
+        document.getElementById("syntheseButton").addEventListener("click", function() {
+            // À implémenter : logique pour afficher la synthèse
+        });
+    </script>
+</body>
+</html>
