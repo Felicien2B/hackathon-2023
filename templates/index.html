@@ -5,22 +5,29 @@
 </head>
 <body>
     <h1>Recherche d'articles</h1>
+    
     <form action="/" method="post">
-        <input type="text" name="search" placeholder="Rechercher un article">
+        <select name="domain">
+            <option value="">Sélectionner un domaine</option>
+            {% for domain in domains %}
+                <option value="{{ domain }}" {% if selected_domain == domain %}selected{% endif %}>{{ domain }}</option>
+            {% endfor %}
+        </select>
         <input type="submit" value="Rechercher">
     </form>
     
-    <!-- Affichage des résultats de la recherche -->
     {% if articles %}
-    <h2>Résultats de la recherche</h2>
-    <ul>
-        {% for article in articles %}
-        <li>
-            <h3><a href="{{ url_for('article', article_id=article['id']) }}">{{ article['title'] }}</a></h3>
-            <p>Mots-clés : {% for keyword in article['keywords'] %}{{ keyword }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
-        </li>
-        {% endfor %}
-    </ul>
+        <h2>Résultats de la recherche</h2>
+        <ul>
+            {% for article in articles %}
+                <li>
+                    <a href="{{ url_for('article', article_id=article['id']) }}">
+                        <p>{% set abstract = article['abstract'][:50] + '...' if article['abstract'] | length > 50 else article['abstract'] %}{{ abstract }}</p>
+                    </a>
+                    <p>Mots-clés : {% for keyword in article['keywords'] %}{{ keyword }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+                </li>
+            {% endfor %}
+        </ul>
     {% endif %}
 </body>
 </html>

@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ article['title'] }}</title>
+    <title>Article</title>
 </head>
 <body>
-    <h1>{{ article['title'] }}</h1>
-    
     <!-- Champs et boutons -->
     <a href="{{ url_for('search') }}"><button>Retour à la recherche</button></a>
     <div>
         <label for="relatedArticlesInput">Nombre d'articles connexes à afficher:</label>
         <input type="number" id="relatedArticlesInput" name="relatedArticles" min="1">
         <button id="searchRelatedArticlesButton">Rechercher</button>
-        <button id="syntheseButton" style="display: none;">Synthèse</button>
+        <!-- Le bouton Synthèse est supprimé -->
     </div>
     
-    <!-- Contenu de l'article -->
-    <p>{{ article['content'] }}</p>
+    <!-- Résumé de l'article -->
+    <p>{{ article['abstract'] }}</p>
     
     <!-- Affichage des articles connexes -->
     <div id="relatedArticlesContent" style="display: none;">
@@ -35,13 +33,6 @@
         document.getElementById("searchRelatedArticlesButton").addEventListener("click", function() {
             var numberOfRelatedArticles = document.getElementById("relatedArticlesInput").value;
             // À implémenter : logique pour afficher les articles connexes
-            
-            // Affichage du bouton "Synthèse" une fois que les articles connexes ont été affichés
-            document.getElementById("syntheseButton").style.display = "inline-block";
-        });
-        
-        document.getElementById("syntheseButton").addEventListener("click", function() {
-            // À implémenter : logique pour afficher la synthèse
         });
     </script>
 </body>
