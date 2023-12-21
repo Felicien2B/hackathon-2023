@@ -3,9 +3,9 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 articles = [
-    {'id': 3, 'title': 'Article 1', 'content': 'Le modèle vectoriel est relativement simple à appréhender (algèbre linéaire) et est facile à implémenter. Il permet de retrouver assez efficacement des documents dans un corpus non structuré (recherche dinformation), son efficacité dépendant pour une grande part de la qualité de la représentation (vocabulaire et schéma de pondération). La représentation vectorielle permet aussi une mise en correspondance des documents avec une requête imparfaite', 'keywords': ['python', 'flask']},
-    {'id': 8, 'title': 'Article 2', 'content': 'Contenu de l\'article 8', 'keywords': ['web', 'development']},
-    {'id': 15, 'title': 'Article 3', 'content': 'Contenu de l\'article 15', 'keywords': ['data', 'science']},
+    {'id': 3, 'domain': 'Python', 'abstract': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'keywords': ['python', 'flask']},
+    {'id': 8, 'domain': 'Web', 'abstract': 'Contenu de l\'article 2', 'keywords': ['web', 'development']},
+    {'id': 15, 'domain': 'Data Science', 'abstract': 'Contenu de l\'article 3', 'keywords': ['data', 'science']},
 ]
 
 @app.route('/', methods=['GET', 'POST'])
