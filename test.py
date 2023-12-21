@@ -18,7 +18,11 @@ for i in range(len(result["ids"])):
     
 
 list_domain = np.unique(list_domain)
-print(list_domain)
-print(json.dumps(list(list_domain)))
+# print(list_domain)
+list_domain_json = json.dumps(list(list_domain))
+f = open("hackathon-2023/src/list_domaine.json", "w")
+f.write(list_domain_json)
+f.close()
+
 # print(result["metadatas"][0])
 # print(result.keys()) #432

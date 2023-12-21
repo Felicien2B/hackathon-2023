@@ -59,8 +59,12 @@ def get_list_article():
     return result_list
 
   
-# @app.route('/get_domain', methods="GET")
-# def get_domain():
+@app.route('/get_domain', methods=["GET"])
+def get_domain():
+    f = open("hackathon-2023/src/list_domaine.json")
+    res = f.read()
+    f.close()
+    return res
        
 
 
