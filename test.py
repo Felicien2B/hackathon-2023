@@ -7,16 +7,14 @@ chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persis
 # collection permet de stocker embeddings, documents et autre metadata
 collection = chroma_client.get_or_create_collection(name="article")
 
-# result = collection.get(ids=["0"])
+result = collection.get(ids=["0"])
 
-list_id = [1596, 3422, 4805, 1841, 4200]
-list_id = [str(x) for x in list_id]
 
-result = collection.get(ids=list_id)
+# result = collection.get(ids=list_id)
 
 list_domain = []
 
-print(result["ids"])
+print(result["metadatas"][0]["abstract"])
 
 
 

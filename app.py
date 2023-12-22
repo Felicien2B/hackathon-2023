@@ -40,13 +40,15 @@ def get_list_article():
     # collection permet de stocker embeddings, documents et autre metadata
     collection = chroma_client.get_or_create_collection(name="article") 
     
-    # article avec domaine de précisé
+    # pour tous les articles du domaine précisé
     if request.method == 'POST':
         search_query = request.form['search'].lower()
         result = collection.get(where={"area" : search_query})
+    # pour renvoyer tous les articles
     elif request.method == "GET":
         result = collection.get()
 
+    # renvoie le résultat
     result_list = []
     for i in range(len(result["ids"])):
         id = result["ids"][i]
@@ -61,6 +63,7 @@ def get_list_article():
     return result_list
 
 # renvoie la liste des domaines
+# les load depuis un fichier
 @app.route('/get_domain', methods=["GET"])
 def get_domain():
     f = open("hackathon-2023/src/list_domaine.json")
@@ -75,16 +78,15 @@ def get_article_connexe():
     chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
     # collection permet de stocker embeddings, documents et autre metadata
     collection = chroma_client.get_or_create_collection(name="article")
-    nb_article_connexe = 5
-    # request.form["relatedArticles"]
+    nb_article_connexe = request.form["relatedArticles"]
+    
+    
     id_article = 1
     
     
     res = NearestNArticles(id_article, nb_article_connexe)
     
     res = [str(x) for x in res]
-
-    
     result = collection.get(ids=res)
     
     result_list = []
@@ -113,14 +115,13 @@ def get_article():
     
     if request.method == 'POST':
         id_query = request.form['search'].lower()
-        result = collection.get(ids=id_query)
-    elif request.method == "GET":
-        result = collection.get()
+        result = collection.get(ids=[id_query])
+
 
     result_list = []
     id = result["ids"]
-    keyword = result["metadatas"]["keywords"]
-    abstract = result["metadatas"]["abstract"]
+    keyword = result["metadatas"][0]["keywords"]
+    abstract = result["metadatas"][0]["abstract"]
     result_list.append({
         "id": id,
         "keywords" : keyword,
