@@ -7,14 +7,31 @@ client = chromadb.PersistentClient(path="hackathon-2023/bdd")
 # collection permet de stocker embeddings, documents et autre metadata
 collection = client.get_or_create_collection(name="article")
 
-result = collection.get(ids=["0"])
+result = collection.get(ids=["232456789"])
 
 
 # result = collection.get(ids=list_id)
 
 list_domain = []
 
-print(result["metadatas"][0]["abstract"])
+print(result)
+print(len(result["ids"]))
+
+result_list = []
+if(len(result["ids"]) != 0):
+    for i in range(len(result["ids"])):
+            id = result["ids"][i]
+            keyword = result["metadatas"][i]["keywords"]
+            abstract = result["metadatas"][i]["abstract"]
+            result_list.append({
+                "id": id,
+                "keywords" : keyword,
+                "abstract" : abstract
+            })
+else:
+    result_list.append("None")
+        
+print(json.dumps(result_list))
 
 
 
