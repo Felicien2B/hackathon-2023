@@ -17,11 +17,12 @@ client = chromadb.PersistentClient(path="hackathon-2023/bdd")
 # client.reset()
 # collection permet de stocker embeddings, documents et autre metadata
 collection = client.get_or_create_collection(name="article")
+# print(collection.count())
 
 #normaliser la colonne keywords_embeddings
 df["new_keywords_embeddings"] = df["keywords_embeddings"].apply(lambda x : x.replace("[", "").replace("]","").replace("\n", "").split())
 df["new_keywords_embeddings"] = df["new_keywords_embeddings"].apply(lambda y : [float(i) for i in y])
-df["area"] = df["area"].apply(lambda x : x.strip())
+df["area"] = df["area"].apply(lambda x : x.strip().lower())
 
 # on ajoute chaque row de la df à la base
 for ind in df.index:
