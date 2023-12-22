@@ -20,16 +20,36 @@
     <!-- Affichage des articles connexes -->
     <div id="relatedArticlesContent" style="display: none;">
         <h2>Articles connexes</h2>
-        <ul id="relatedArticlesList">
-            <!-- À implémenter -->
-        </ul>
+        <div id="relatedArticlesList">
+            <!-- Liste des articles connexes à charger ici -->
+        </div>
     </div>
     
     <script>
         document.getElementById("searchRelatedArticlesButton").addEventListener("click", function() {
             var numberOfRelatedArticles = document.getElementById("relatedArticlesInput").value;
-            // À implémenter : logique pour afficher les articles connexes
+    
+            // Requête AJAX vers la route '/get_article_connexe' avec les données du formulaire
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/get_article_connexe", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Mettre à jour la liste des articles connexes dans la page HTML
+                        var relatedArticlesList = document.getElementById("relatedArticlesList");
+                        relatedArticlesList.innerHTML = xhr.responseText;
+                        // Afficher la zone des articles connexes
+                        document.getElementById("relatedArticlesContent").style.display = "block";
+                    } else {
+                        // Gérer les erreurs ici
+                        console.error('Erreur !');
+                    }
+                }
+            };
+            xhr.send("relatedArticles=" + numberOfRelatedArticles + "&idArticle={{ article['id'] }}");
         });
     </script>
+    
 </body>
 </html>

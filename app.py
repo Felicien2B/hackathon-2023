@@ -84,9 +84,8 @@ def get_article_connexe():
     
     # renvoie le résultat sous la forme : [{"id" : , "abstract" ; , "keywords" : }, {}]
     result_list = get_resultat_requete(result)
-        
-    return result_list
 
+    return render_template('related_articles.html', articles=result_list)
 
 # renvoie un article grâce à son id
 @app.route('/get_article', methods=["POST"])

@@ -13,7 +13,7 @@ def NearestNArticles(idArticle, n):
     Returns:
         list[int]: list d'entiers représentants les id des n articles connexes
     """
-    df = pd.read_excel("hackathon-2023\Hackathon2023_CleanDataEmbedding.xlsx")
+    df = pd.read_excel("Hackathon2023_CleanDataEmbedding.xlsx")
     z=idArticle
     
     # traitement pour récupérer les embeddings sous la forme de list de float
