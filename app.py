@@ -32,7 +32,13 @@ def search():
             article for article in result_list
             if any(keyword in search_query for keyword in article['keywords'])
         ]
-    return render_template('index.html', articles=matching_articles)
+    # renvoie la liste des domaines
+    # les load depuis un fichier
+    f = open("src/list_domaine.json", 'r')
+    res = json.load(f)
+    print(res)
+    f.close()
+    return render_template('index.html', articles=matching_articles, res=res)
 
 @app.route('/article/<int:article_id>')
 def article(article_id):
@@ -70,15 +76,6 @@ def get_list_article():
     #     })
         
     return result_list
-
-# renvoie la liste des domaines
-# les load depuis un fichier
-@app.route('/get_domain', methods=["GET"])
-def get_domain():
-    f = open("hackathon-2023/src/list_domaine.json")
-    res = json.load(f)
-    f.close()
-    return res
 
 # a vérifier (une fois qu'on a récupérer l'id de l'article depuis le front)
 # plus faire proprement

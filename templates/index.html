@@ -8,9 +8,15 @@
 <body>
     <h1>Search Results</h1>
     <form action="/" method="post">
-        <input type="text" name="search" placeholder="Search for an article">
-        <input type="submit" value="Search">
+    <select name="search">
+        {% for domain in res %}
+            <option value="{{ domain }}">{{ domain }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Search">
     </form>
+
+    
 
     {% if articles %}
         <h2>Search Results:</h2>
