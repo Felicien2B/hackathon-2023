@@ -13,6 +13,9 @@ def NearestNArticles(idArticle, n):
     df["distances"] = df["new_embeddings"].apply(lambda x: cosine(query_embedding, x))
     smallest_distances = df.nsmallest(n+1, 'distances')[[ "keywords_embeddings", "distances"]]
     indices_of_smallest_distances = smallest_distances.index.tolist()
+    
+    indices_of_smallest_distances = [str(x) for x in indices_of_smallest_distances]
+
   
     # return smallest_distances, indices_of_smallest_distances[1:]
     return indices_of_smallest_distances[1:]

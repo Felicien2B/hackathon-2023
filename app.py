@@ -77,20 +77,20 @@ def get_domain():
 
 # a vérifier (une fois qu'on a récupérer l'id de l'article depuis le front)
 # plus faire proprement
-@app.route('/get_article_connexe', methods=["GET", "POST"])
+@app.route('/get_article_connexe', methods=["POST"])
 def get_article_connexe():
     # chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
     # # collection permet de stocker embeddings, documents et autre metadata
     # collection = chroma_client.get_or_create_collection(name="article")
-    nb_article_connexe = request.form["relatedArticles"]
+    nb_article_connexe = int(request.form["relatedArticles"])
     
     
-    id_article = 1
+    id_article = int(request.form["idArticle"])
     
     
     res = NearestNArticles(id_article, nb_article_connexe)
     
-    res = [str(x) for x in res]
+    # res = [str(x) for x in res]
     result = collection.get(ids=res)
     
     result_list = get_resultat_requete(result)
@@ -110,7 +110,7 @@ def get_article_connexe():
 
 
 # a vérifier + faire proprement
-@app.route('/get_article', methods=["GET", "POST"])
+@app.route('/get_article', methods=["POST"])
 def get_article():
     # chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
     # # collection permet de stocker embeddings, documents et autre metadata
@@ -134,15 +134,6 @@ def get_article():
     
     return result_list
         
-
-    
-
-    
-    
-    
-    
-    
-       
 
 
 
