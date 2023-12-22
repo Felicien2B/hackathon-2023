@@ -2,6 +2,7 @@ import numpy as np
 from scipy.spatial.distance import cosine
 import pandas as pd
 
+df = pd.read_excel("Hackathon2023_CleanDataEmbedding.xlsx")
 def NearestNArticles(idArticle, n):
     """calcule les distances (avec cosine) entre les embeddings de idArticle et ceux des articles de la base
     renvoie les n articles les plus proches
@@ -13,7 +14,6 @@ def NearestNArticles(idArticle, n):
     Returns:
         list[int]: list d'entiers représentants les id des n articles connexes
     """
-    df = pd.read_excel("Hackathon2023_CleanDataEmbedding.xlsx")
     z=idArticle
     
     # traitement pour récupérer les embeddings sous la forme de list de float
