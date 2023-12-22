@@ -8,7 +8,7 @@ from affichage import get_resultat_requete
 
 app = Flask(__name__)
 
-client = chromadb.PersistentClient(path="hackathon-2023/bdd")
+client = chromadb.PersistentClient(path="bdd")
 collection = client.get_or_create_collection(name="article") 
 print(collection.count())
 

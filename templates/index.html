@@ -18,7 +18,7 @@
             {% for article in articles %}
                 <li>
                     <h3><a href="{{ url_for('article', article_id=article['id']) }}">{{ article['abstract'][:50] }}...</a></h3>
-                    <p>Keywords: {% for keyword in article['keywords'] %}{{ keyword }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+                    <p>Keywords: {% for keyword in article['keywords'].split(";") %}{{ keyword }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
                 </li>
             {% endfor %}
         </ul>
