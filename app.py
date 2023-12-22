@@ -25,8 +25,6 @@ def search():
         result = collection.get(where={"area" : search_query})
         # renvoie le résultat sous la forme : [{"id" : , "abstract" ; , "keywords" : }, {}]
         result_list = get_resultat_requete(result)
-        print(result)
-        print(result_list)
         matching_articles = [
             article for article in result_list
             if any(keyword in search_query for keyword in article['keywords'])
@@ -35,7 +33,6 @@ def search():
     # les load depuis un fichier
     f = open("src/list_domaine.json", 'r')
     res = json.load(f)
-    print(res)
     f.close()
     return render_template('index.html', articles=matching_articles, res=res)
 
