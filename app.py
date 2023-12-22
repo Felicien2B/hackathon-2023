@@ -1,5 +1,5 @@
 
-import keyword
+import json
 from flask import Flask, render_template, request
 import chromadb
 from chromadb.config import Settings
@@ -60,11 +60,11 @@ def get_list_article():
         
     return result_list
 
-  
+# renvoie la liste des domaines
 @app.route('/get_domain', methods=["GET"])
 def get_domain():
     f = open("hackathon-2023/src/list_domaine.json")
-    res = f.read()
+    res = json.load(f)
     f.close()
     return res
 
