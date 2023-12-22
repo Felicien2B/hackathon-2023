@@ -42,10 +42,12 @@ def search():
 
 @app.route('/article/<int:article_id>')
 def article(article_id):
-    article = next((a for a in articles if a['id'] == article_id), None)
+    id_query = str(article_id)
+    result = collection.get(ids=[id_query])
+    article = get_resultat_requete(result)
     if article:
-        return render_template('article.html', article=article)
-    return 'Article non trouvé', 404
+        return render_template('article.html', article=article[0])
+    return 'Article not found', 404
 
 
 # renvoie la liste d'articles
@@ -136,8 +138,6 @@ def get_article():
     
     return result_list
         
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
