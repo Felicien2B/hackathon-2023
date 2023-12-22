@@ -2,9 +2,9 @@
 import json
 from flask import Flask, render_template, request
 import chromadb
-from chromadb.config import Settings
 
 from Nearest_N_Articles import NearestNArticles
+from affichage import get_resultat_requete
 
 app = Flask(__name__)
 
@@ -53,16 +53,16 @@ def get_list_article():
         result = collection.get()
 
     # renvoie le résultat
-    result_list = []
-    for i in range(len(result["ids"])):
-        id = result["ids"][i]
-        keyword = result["metadatas"][i]["keywords"]
-        abstract = result["metadatas"][i]["abstract"]
-        result_list.append({
-            "id": id,
-            "keywords" : keyword,
-            "abstract" : abstract
-        })
+    result_list = get_resultat_requete(result)
+    # for i in range(len(result["ids"])):
+    #     id = result["ids"][i]
+    #     keyword = result["metadatas"][i]["keywords"]
+    #     abstract = result["metadatas"][i]["abstract"]
+    #     result_list.append({
+    #         "id": id,
+    #         "keywords" : keyword,
+    #         "abstract" : abstract
+    #     })
         
     return result_list
 
@@ -93,17 +93,17 @@ def get_article_connexe():
     res = [str(x) for x in res]
     result = collection.get(ids=res)
     
-    result_list = []
+    result_list = get_resultat_requete(result)
     
-    for i in range(len(result["ids"])):
-        id = result["ids"][i]
-        keyword = result["metadatas"][i]["keywords"]
-        abstract = result["metadatas"][i]["abstract"]
-        result_list.append({
-            "id": id,
-            "keywords" : keyword,
-            "abstract" : abstract
-        })
+    # for i in range(len(result["ids"])):
+    #     id = result["ids"][i]
+    #     keyword = result["metadatas"][i]["keywords"]
+    #     abstract = result["metadatas"][i]["abstract"]
+    #     result_list.append({
+    #         "id": id,
+    #         "keywords" : keyword,
+    #         "abstract" : abstract
+    #     })
         
         
     return result_list
@@ -122,15 +122,15 @@ def get_article():
         result = collection.get(ids=[id_query])
 
 
-    result_list = []
-    id = result["ids"]
-    keyword = result["metadatas"][0]["keywords"]
-    abstract = result["metadatas"][0]["abstract"]
-    result_list.append({
-        "id": id,
-        "keywords" : keyword,
-        "abstract" : abstract
-    })
+    result_list = get_resultat_requete(result)
+    # id = result["ids"]
+    # keyword = result["metadatas"][0]["keywords"]
+    # abstract = result["metadatas"][0]["abstract"]
+    # result_list.append({
+    #     "id": id,
+    #     "keywords" : keyword,
+    #     "abstract" : abstract
+    # })
     
     return result_list
         
