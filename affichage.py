@@ -1,7 +1,9 @@
-# récupère le résultat d'une requête
-# le met au format json et le renvoie
+# affiche le résultat d'une requête sous la forme [{"id" : , "abstract" ; , "keywords" : }, {}]
+# si rien n'a été trouvé : []
 def get_resultat_requete(result):
     result_list = []
+    
+    # pour chaque document détecté : on récupère son id, son abstract et ses keyword
     for i in range(len(result["ids"])):
         id = result["ids"][i]
         keyword = result["metadatas"][i]["keywords"]
