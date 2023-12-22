@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 client = chromadb.PersistentClient(path="hackathon-2023/bdd")
 collection = client.get_or_create_collection(name="article") 
+print(collection.count())
 
 
 # articles = [
@@ -22,9 +23,13 @@ collection = client.get_or_create_collection(name="article")
 def search():
     matching_articles = []
     if request.method == 'POST':
-        search_query = request.form['search'].lower()
+        search_query = request.form['search']
+        result = collection.get(where={"area" : search_query})
+        result_list = get_resultat_requete(result)
+        print(result)
+        print(result_list)
         matching_articles = [
-            article for article in articles
+            article for article in result_list
             if any(keyword in search_query for keyword in article['keywords'])
         ]
     return render_template('index.html', articles=matching_articles)
