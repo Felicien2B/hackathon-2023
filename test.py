@@ -3,9 +3,9 @@ from chromadb.config import Settings
 import json
 import numpy as np
 
-chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
+client = chromadb.PersistentClient(path="hackathon-2023/bdd")
 # collection permet de stocker embeddings, documents et autre metadata
-collection = chroma_client.get_or_create_collection(name="article")
+collection = client.get_or_create_collection(name="article")
 
 result = collection.get(ids=["0"])
 

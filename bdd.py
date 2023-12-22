@@ -12,11 +12,11 @@ import pandas as pd
 #dataframe pour récupérer les données à mettre
 df = pd.read_excel("hackathon-2023\Hackathon2023_CleanDataEmbedding.xlsx")
 
-
-chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
-chroma_client.reset()
+client = chromadb.PersistentClient(path="hackathon-2023/bdd")
+# chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd2/"))
+# client.reset()
 # collection permet de stocker embeddings, documents et autre metadata
-collection = chroma_client.get_or_create_collection(name="article")
+collection = client.get_or_create_collection(name="article")
 
 #normaliser la colonne keywords_embeddings
 df["new_keywords_embeddings"] = df["keywords_embeddings"].apply(lambda x : x.replace("[", "").replace("]","").replace("\n", "").split())

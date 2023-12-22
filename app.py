@@ -8,6 +8,10 @@ from Nearest_N_Articles import NearestNArticles
 
 app = Flask(__name__)
 
+client = chromadb.PersistentClient(path="hackathon-2023/bdd")
+collection = client.get_or_create_collection(name="article") 
+
+
 # articles = [
 #     {'id': 3, 'domain': 'Python', 'abstract': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'keywords': ['python', 'flask']},
 #     {'id': 8, 'domain': 'Web', 'abstract': 'Contenu de l\'article 2', 'keywords': ['web', 'development']},
@@ -36,9 +40,9 @@ def article(article_id):
 # renvoie la liste d'articles
 @app.route('/list_article', methods=['GET', 'POST'])
 def get_list_article():
-    chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
-    # collection permet de stocker embeddings, documents et autre metadata
-    collection = chroma_client.get_or_create_collection(name="article") 
+    # chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
+    # # collection permet de stocker embeddings, documents et autre metadata
+    # collection = chroma_client.get_or_create_collection(name="article") 
     
     # pour tous les articles du domaine précisé
     if request.method == 'POST':
@@ -75,9 +79,9 @@ def get_domain():
 # plus faire proprement
 @app.route('/get_article_connexe', methods=["GET", "POST"])
 def get_article_connexe():
-    chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
-    # collection permet de stocker embeddings, documents et autre metadata
-    collection = chroma_client.get_or_create_collection(name="article")
+    # chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
+    # # collection permet de stocker embeddings, documents et autre metadata
+    # collection = chroma_client.get_or_create_collection(name="article")
     nb_article_connexe = request.form["relatedArticles"]
     
     
@@ -108,9 +112,9 @@ def get_article_connexe():
 # a vérifier + faire proprement
 @app.route('/get_article', methods=["GET", "POST"])
 def get_article():
-    chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
-    # collection permet de stocker embeddings, documents et autre metadata
-    collection = chroma_client.get_or_create_collection(name="article") 
+    # chroma_client = chromadb.Client(Settings(chroma_db_impl="duckdb+parquet", persist_directory="hackathon-2023/bdd/"))
+    # # collection permet de stocker embeddings, documents et autre metadata
+    # collection = chroma_client.get_or_create_collection(name="article") 
     
     
     if request.method == 'POST':
